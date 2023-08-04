@@ -1,0 +1,35 @@
+final user = User(name: 'Tina');
+box.put(user);
+
+final users = getNewUsers();
+box.putMany(users)
+
+final user = box.get(userId);
+final users = box.getMany(userIds);
+final users = box.getAll();
+
+-- procurando pessoas
+final query =
+    (box.query(User_.name.equals('Tom'))..order(User_.name)).build();
+final results = query.find();
+query.close();
+
+--removendo pessoas
+final isRemoved = box.remove(userId);
+
+box.removeMany(userIds);
+
+box.removeAll();
+
+--retornar objetos do armazenamento
+final userCount = box.count();
+
+
+-- função assincrona
+final user = User(name: 'Tina');
+Future<int> idFuture = box.putAsync(user);
+
+...
+
+final id = await idFuture;
+box.get(id); 
